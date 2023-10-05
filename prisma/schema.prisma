@@ -10,46 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
-model Klant {
-  id      Int     @id @default(autoincrement())
-  name    String  @unique
-  email   String
-  password   String
-  phone   Int
-  gewijzigd DateTime @updatedAt
-}
-
-model Tochten{
-id      Int     @id @default(autoincrement())
-omschrijving String
-route String
-days Int
-
-}
-
-model Boekingen {
-  startdate DateTime
-  pincode   String @unique // Add this line to make 'pincode' unique
-  tocht     String
-  klant     String
-  status    String
-}
-
-model Restaurants {
-  naam        String
-  adres       String
-  email       String @unique // Add this line to make 'email' unique
-  phone       Int
-  coordinates String
-}
-
-model Pauzeplaatsen {
-  boeking    String
-  restaurant String
-  status     String
-
-  @@unique([boeking, restaurant])
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String?
+  role     String  @default("user")
 }
