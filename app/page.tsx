@@ -1,7 +1,19 @@
 'use client'
+import Boekitem from "../components/Boekitem";
 
-export default function Home () {
+export default function title() {
     return (
-        <h1>Home</h1>
+       <section>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'sdfsdfd'}/>
+           <Boekitem title={'hadddddllo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}/>
+           <Boekitem title={'hallo'}>hallo</Boekitem>
+       </section>
     )
 }
