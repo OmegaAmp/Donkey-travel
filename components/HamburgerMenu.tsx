@@ -14,7 +14,7 @@ import {
 
 export default function HamburgerMenu () {
 return (
-    <NavigationMenu>
+    <NavigationMenu className="z-10 flex max-w-full flex-1 items-center justify-end bg-gray-800 text-white shadow-lg p-4 sticky top-0">
         <NavigationMenuList>
             <NavigationMenuItem>
                 <NavigationMenuTrigger>
