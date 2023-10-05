@@ -1,6 +1,7 @@
 'use server'
 
 import * as z from 'zod'
+import PrismaClient from '@/utils/prisma'
 
 export async function createAccount (form: FormData) {
     const dataSchema = z.object({
