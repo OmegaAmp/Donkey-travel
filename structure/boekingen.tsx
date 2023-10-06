@@ -4,7 +4,7 @@ import { Prisma, Boekingen } from '@prisma/client';
 function getAllBoekingen(): Promise<Boekingen[]> {
     return prisma.boekingen.findMany({
         orderBy: {
-            startdate: 'desc',
+            startDatum: 'desc',
         },
     });
 }
