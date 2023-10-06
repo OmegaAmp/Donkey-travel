@@ -1,41 +1,41 @@
 import prisma from '@/utils/prisma';
-import { Prisma, Boekingen } from '@prisma/client';
+import { Prisma, Boeking } from '@prisma/client';
 
-function getAllBoekingen(): Promise<Boekingen[]> {
-    return prisma.boekingen.findMany({
+function getAllBoekingen(): Promise<Boeking[]> {
+    return prisma.boeking.findMany({
         orderBy: {
             startDatum: 'desc',
         },
     });
 }
 
-function createBoekingen(data: Prisma.BoekingenCreateInput): Promise<Boekingen> {
-    return prisma.boekingen.create({ data });
+function createBoeking(data: Prisma.BoekingCreateInput): Promise<Boeking> {
+    return prisma.boeking.create({ data });
 }
 
-function updateBoekingen(id: number, startdate: Date, Tocht: string, KlantId: number, StatusId: number): Promise<Boekingen> {
-    return prisma.boekingen.update({
+function updateBoeking(id: number, startDatum: Date, fkTochtenId: number, fkKlantenId: number, fkStatussenId: number): Promise<Boeking> {
+    return prisma.boeking.update({
         where: { id },
-        data: { startdate, Tocht, KlantId, StatusId },
+        data: { startDatum, fkTochtenId, fkKlantenId, fkStatussenId },
     });
 }
 
-function deleteBoekingen(id: number): Promise<Boekingen> {
-    return prisma.boekingen.delete({
+function deleteBoeking(id: number): Promise<Boeking> {
+    return prisma.boeking.delete({
         where: { id },
     });
 }
 
-function getBoekingenById(id: number): Promise<Boekingen | null> {
-    return prisma.boekingen.findUnique({
+function getBoekingById(id: number): Promise<Boeking | null> {
+    return prisma.boeking.findUnique({
         where: { id },
     });
 }
 
 export {
     getAllBoekingen,
-    createBoekingen,
-    updateBoekingen,
-    deleteBoekingen,
-    getBoekingenById,
+    createBoeking,
+    updateBoeking,
+    deleteBoeking,
+    getBoekingById,
 };
