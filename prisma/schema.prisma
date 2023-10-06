@@ -91,3 +91,12 @@ model Pauzeplaatsen {
   restaurants     Restaurants @relation(fields: [FKrestaurantsID], references: [id])
   statussen       Statussen   @relation(fields: [FKstatussenID], references: [id])
 }
+
+model Klanten{
+ id    Int    @id @default(autoincrement())
+Naam String
+Email String
+Telefoon String
+Wachtwoord String
+Gewijzigd DateTime
+}
