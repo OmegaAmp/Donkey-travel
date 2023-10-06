@@ -17,3 +17,14 @@ model User {
   name     String?
   role     String  @default("user")
 }
+
+model Boekingen {
+    id         Int      @id @default(autoincrement())
+    startdate  DateTime @default(now())
+    Tocht      String
+    KlantId    Int
+    StatusId   Int
+}
+
+model
+
