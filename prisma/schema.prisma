@@ -1,30 +1,93 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  name     String?
-  role     String  @default("user")
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Trackers {
+  id        Int         @id @default(autoincrement())
+  PINCode   Int
+  Lat       Float
+  Lon       Float
+  Time      DateTime
+  tochten   Tochten[]
+  Boekingen Boekingen[]
+}
+
+model Tochten {
+  id           Int        @id @default(autoincrement())
+  Omschrijving String // 40
+  Route        String // 50
+  AantalDagen  Int
+  trackers     Trackers[]
+}
+
+model Herbergen {
+  id             Int              @id @default(autoincrement())
+  Naam           String // 50
+  Adres          String // 50
+  Email          String // 100
+  Telefoon       String // 20
+  Coordinaten    String // 20
+  Gewijzigd      DateTime
+  overnachtingen Overnachtingen[]
+}
+
+model Overnachtingen {
+  id            Int       @id @default(autoincrement())
+  FKboekingenID Int
+  FKherbergenID Int
+  FKstatussenID Int
+  herbergen     Herbergen @relation(fields: [FKherbergenID], references: [id])
+  statussen     Statussen @relation(fields: [FKstatussenID], references: [id])
 }
 
 model Boekingen {
-    id         Int      @id @default(autoincrement())
-    startdate  DateTime @default(now())
-    Tocht      String
-    KlantId    Int
-    StatusId   Int
+  id            Int             @id @default(autoincrement())
+  StartDatum    DateTime
+  PINCode       Int
+  FKtochtenID   Int
+  FKklantenID   Int
+  FKstatussenID Int
+  tochten       Trackers        @relation(fields: [FKtochtenID], references: [id])
+  statussen     Statussen       @relation(fields: [FKstatussenID], references: [id])
+  Pauzeplaatsen Pauzeplaatsen[]
 }
 
-model
+model Restaurants {
+  id            Int             @id @default(autoincrement())
+  naam          String
+  adres         String
+  email         String
+  telefoon      String // 20
+  coordinaten   String
+  gewijzigd     DateTime
+  pauzeplaatsen Pauzeplaatsen[]
+  Statussen     Statussen?      @relation(fields: [statussenId], references: [id])
+  statussenId   Int?
+}
 
+model Statussen {
+  id             Int              @id @default(autoincrement())
+  statuscode     Int
+  status         String // 40
+  verwijderbaar  Int
+  PINtoekennen   Int
+  boekingen      Boekingen[]
+  restaurants    Restaurants[]
+  pauzeplaatsen  Pauzeplaatsen[]
+  Overnachtingen Overnachtingen[]
+}
+
+model Pauzeplaatsen {
+  id              Int         @id @default(autoincrement())
+  FKboekingenID   Int
+  FKrestaurantsID Int
+  FKstatussenID   Int
+  boekingen       Boekingen   @relation(fields: [FKboekingenID], references: [id])
+  restaurants     Restaurants @relation(fields: [FKrestaurantsID], references: [id])
+  statussen       Statussen   @relation(fields: [FKstatussenID], references: [id])
+}
